@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -21,7 +21,7 @@ export class MyAccessFormComponent implements OnInit {
 
   durationInSecond = 5;
 
-  welcomeMessage:string = "Welcome to myAccess DEMO";
+  welcomeMessage: string = "Welcome to myAccess DEMO";
 
   /** matcher invoked error when invalid control is dirty, touched, or submitted */
   matcher = new MyErrorStateMatcher();
@@ -52,7 +52,7 @@ export class MyAccessFormComponent implements OnInit {
     return this.myAccessForm.controls[controlName].hasError(errorName);
   };
 
-  openSnackBar(){
+  openSnackBar() {
     this._snackBar.openFromComponent(SnackBarComponent, {
       duration: this.durationInSecond * 1000,
     });
@@ -72,4 +72,4 @@ export class MyAccessFormComponent implements OnInit {
     }
   `],
 })
-export class SnackBarComponent {}
+export class SnackBarComponent { }
