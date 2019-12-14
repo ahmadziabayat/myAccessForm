@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -18,16 +19,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class MyAccessFormComponent implements OnInit {
   myAccessForm: FormGroup;
 
-  submitted = false;
-  success = false;
-  status: string;
+  durationInSecond = 5;
+
+  welcomeMessage:string = "Welcome to myAccess DEMO";
 
   /** matcher invoked error when invalid control is dirty, touched, or submitted */
   matcher = new MyErrorStateMatcher();
 
-  constructor( private formbBuilder: FormBuilder) { 
+  constructor(private formbBuilder: FormBuilder, private _snackBar: MatSnackBar) {
+    /**name field only accept letter and digits and does not accept any especial character */
     this.myAccessForm = this.formbBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
       address: ['', Validators.required]
     })
   }
@@ -35,26 +37,39 @@ export class MyAccessFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSave(formData){
-    this.submitted = true;
-    if(this.myAccessForm.invalid){
+  onSave(formData) {
+    if (this.myAccessForm.invalid) {
       return;
     }
-    else if(this.myAccessForm.valid){
+    else if (this.myAccessForm.valid) {
       console.log(formData.value);
-      this.success = true;
+      this.openSnackBar();
     }
-  
+
   };
 
-  public hasError = (controlName: string, errorName: string) =>{
+  public hasError = (controlName: string, errorName: string) => {
     return this.myAccessForm.controls[controlName].hasError(errorName);
   };
 
-  getStatus(){
-    this.status = this.myAccessForm.status;
+  openSnackBar(){
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSecond * 1000,
+    });
   }
 
-
-
 }
+
+
+@Component({
+  selector: 'snack-bar-component',
+  template: `<span class="saveMessage">
+  Form Saved!!! 
+</span>`,
+  styles: [`
+    .saveMessage {
+      color: hotpink;
+    }
+  `],
+})
+export class SnackBarComponent {}

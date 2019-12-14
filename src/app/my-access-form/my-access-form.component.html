@@ -1,18 +1,26 @@
-<form class="myAccess-form" [formGroup]="myAccessForm" autocomplete="off" novalidate (onSubmit)="onSave(myAccessForm.value)">
-<h5 *ngIf="success && (!hasError('name', 'required') && !hasError('address', 'required'))"> Your form is valid</h5>
+<div id="accessform">
+  <h1>
+    {{ welcomeMessage }}
+  </h1>
+  <form class="myAccess-form" [formGroup]="myAccessForm" autocomplete="off" novalidate
+    (onSubmit)="onSave(myAccessForm.value)">
+    <h5 *ngIf="success && (!hasError('name', 'required') && !hasError('address', 'required'))"> Your form is valid</h5>
 
-<mat-form-field class="full-width">
-  <input matInput type="text" formControlName="name" placeholder="Name" [errorStateMatcher]="matcher"/>
-  <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
-</mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" formControlName="name" placeholder="Name" [errorStateMatcher]="matcher"/>
+      <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+      <mat-error *ngIf="hasError('name', 'pattern')">Must contain only Letters or digits</mat-error>
+    </mat-form-field>
 
-<mat-form-field class="full-width">
-  <input matInput type="text" formControlName="address" placeholder="Address" [errorStateMatcher]="matcher"/>
-  <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
-</mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" formControlName="address" placeholder="Address" [errorStateMatcher]="matcher" />
+      <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
+    </mat-form-field>
 
-<button id="saveButton" (click)="onSave(myAccessForm)" mat-raised-button color="primary">Save</button>
+    <button id="saveButton" type="submit" [disabled]="!myAccessForm.valid" (click)="onSave(myAccessForm)"
+      mat-raised-button color="primary">Save</button>
 
-<p>Form Value: {{myAccessForm.value | json}} </p>
-<p>Form Status: {{myAccessForm.status}}</p>
-</form>
+    <p>Form Value: {{myAccessForm.value | json}} </p>
+    <p>Form Status: {{myAccessForm.status}}</p>
+  </form>
+</div>

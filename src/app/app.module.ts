@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MyAccessFormComponent } from './my-access-form/my-access-form.component';
+import { MyAccessFormComponent, SnackBarComponent } from './my-access-form/my-access-form.component';
 import { MaterialModules } from './material-modules';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     MyAccessFormComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -18,8 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
-    MaterialModules
+    MaterialModules,
   ],
+  entryComponents: [MyAccessFormComponent, SnackBarComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
