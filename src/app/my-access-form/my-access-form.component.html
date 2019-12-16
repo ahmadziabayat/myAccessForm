@@ -4,7 +4,6 @@
   </h1>
   <form class="myAccess-form" [formGroup]="myAccessForm" autocomplete="off" novalidate
     (onSubmit)="onSave(myAccessForm.value)">
-    <h5 *ngIf="success && (!hasError('name', 'required') && !hasError('address', 'required'))"> Your form is valid</h5>
 
     <mat-form-field class="full-width">
       <input matInput type="text" formControlName="name" placeholder="Name" [errorStateMatcher]="matcher"/>
